@@ -1,0 +1,12 @@
+https://www.infoworld.com/article/3271126/what-is-cicd-continuous-integration-and-continuous-delivery-explained.html
+
+
+Agenda
+* Einleitung
+  * Strawpoll
+  * Definition
+  * Vorteile / Konzepte / Anwendungsmöglichkeiten
+* CI/CD mit Github
+  * Aufbau
+  * Usecases
+* Fazit
