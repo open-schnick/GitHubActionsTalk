@@ -2,7 +2,7 @@
 ## Einleitung / Strawpoll
 ## CI/CD
 * Definition
-* Vorteile / Konzepte / Anwendungsmöglichkeiten
+* Vorteile / Konzepte / Anwendungsmöglichkeiten 
 
 ## CI/CD mit GitHub
 * Einleitung
@@ -11,7 +11,9 @@
     * Jobs -> runs on...
     * Steps -> syntax
     * custom github actions.
+* Some stuff:
     * Badges
+    * Secrets
 * Common Usecases / Examples
     * Test pipeline.
     * Latest release
