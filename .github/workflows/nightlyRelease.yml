@@ -1,0 +1,30 @@
+name: Nightly Release
+
+on:
+  workflow_dispatch:
+  schedule: 
+    - cron: '0 0 * * *'
+
+jobs:
+  build_nightly:
+    runs-on: ubuntu-latest
+
+    steps:
+      - 
+        name: Checkout Code
+        uses: actions/checkout@v2
+      - 
+        name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: '11.0.8'
+          architecture: x64
+      -
+        name: Run tests with Maven
+        run: mvn clean test -f pom.xml
+      -
+        name: Bump version and push tag
+        uses: anothrNick/github-tag-action@1.26.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
