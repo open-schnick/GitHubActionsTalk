@@ -1,0 +1,24 @@
+name: Tests
+
+on:
+  push:
+    paths:
+      - 'src/**'
+      - 'pom.xml'
+
+jobs:
+  Build_Docker_Image_on_Push:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout Code
+        uses: actions/checkout@v1
+      -
+        name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: '11.0.8'
+          architecture: x64
+      -
+        name: Run tests with Maven
+        run: mvn clean test -f pom.xml
