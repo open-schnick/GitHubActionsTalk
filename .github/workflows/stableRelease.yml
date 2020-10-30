@@ -40,12 +40,6 @@ jobs:
         with:
           name: jars
       -
-        name: Generate JarNames from Git Tag
-        id: version
-        run: |
-          echo ::set-output name=tag::${GITHUB_REF#refs/*/}
-          JARNAME="Application_Stable_"${{ steps.version.outputs.version }}".jar"
-      -
         name: Setup environment variable for action
         run: echo ::set-env name=JARS::$(ls -p | grep -v / | tr '\n' ' ') # workaround. files needs concatenated filenames with whitespace between them.
       -
