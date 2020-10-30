@@ -7,7 +7,7 @@ on:
       - 'pom.xml'
 
 jobs:
-  Build_Docker_Image_on_Push:
+  Run_All_Tests_On_Push:
     runs-on: ubuntu-latest
     steps:
       -
