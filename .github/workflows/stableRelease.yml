@@ -55,4 +55,5 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ steps.version.outputs.version }}
           gzip: false
+          allow_override: true
           files: ${{ env.JARS }}
