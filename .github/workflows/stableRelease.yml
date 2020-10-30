@@ -1,0 +1,58 @@
+name: Stable Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+jobs:
+  generate-jars:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout Code
+        uses: actions/checkout@v1
+      -
+        name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: '11.0.8'
+          architecture: x64
+      -
+        name: Generate Jars.
+        run: |
+          mvn -B package --file pom.xml
+          mvn javadoc:jar
+          mkdir jars && cp target/*.jar jars
+      -
+        name: Save Artifacts.
+        uses: actions/upload-artifact@v2
+        with:
+          name: jars
+          path: jars
+
+  generate-new-Release:
+    needs: [generate-jars]
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Get Artifacts.
+        uses: actions/download-artifact@v2
+        with:
+          name: jars
+      -
+        name: Generate JarNames from Git Tag
+        id: version
+        run: |
+          echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+          JARNAME="Application_Stable_"${{ steps.version.outputs.version }}".jar"
+      -
+        name: Setup environment variable for action
+        run: echo ::set-env name=JARS::$(ls -p | grep -v / | tr '\n' ' ') # workaround. files needs concatenated filenames with whitespace between them.
+      -
+        name: Create new release and tag.
+        uses: meeDamian/github-release@2.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ steps.version.outputs.version }}
+          gzip: false
+          files: ${{ env.JARS }}
